@@ -23,6 +23,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 //joing node modules
 app.use(express.static(path.join(__dirname, "node_modules")));
 
+//using dotenv package to read from .env file
+if(process.env.NODE_ENV!='production'){
+  require('dotenv').config();
+}
+//mongodb connection string
+const mongoose=require('mongoose');
+
+mongoose.connect(process.env.CONNECTION_STRING).then((res)=>{
+  console.log('Connected to mongoose');
+}).catch(()=>{
+  console.log('Connection to mongoose failed');
+}
+)
+
 app.use('/', indexRouter);
 app.use('/employers', employersRouter)
 app.use('/users', usersRouter);
