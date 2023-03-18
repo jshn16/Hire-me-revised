@@ -40,6 +40,22 @@ li {
   font-weight: 700;
 }
 
+.dropdown-menu{
+
+  border: none;
+  box-shadow: rgba(28, 28, 28, 0.2) 0px 2px 4px 0px;
+  border-radius: 1rem;
+  outline: none;
+  
+}
+
+
+.dropdown-menu a{
+  padding: 0.5rem  1rem;
+  color: #0E1111 !important;
+
+}
+
 label{
   min-width: 100px;
   margin: 5px 0;
@@ -62,3 +78,4 @@ input{
   border: none;
   background-color: #FFC107;
 }
+

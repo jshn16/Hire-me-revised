@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./controllers/index');
 const carsRouter = require('./controllers/cars');
+const companiesRouter=require('./controllers/companies');
 const usersRouter = require('./controllers/users');
 
 const app = express();
@@ -39,6 +40,7 @@ mongoose.connect(process.env.CONNECTION_STRING).then((res)=>{
 
 app.use('/', indexRouter);
 app.use('/cars', carsRouter)
+app.use('/companies', companiesRouter)
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
