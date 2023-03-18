@@ -10,21 +10,32 @@ const car = require("../models/car");
 router.get('/', function (req, res) {
 
     //reading file
-    fs.readFile('./data/cars.json', 'utf-8', (err, data) => {
+    // fs.readFile('./data/cars.json', 'utf-8', (err, data) => {
 
-        if (err) {
+    //     if (err) {
 
-            console.log(err)
-        }
+    //         console.log(err)
+    //     }
 
-        else {
-            console.log(data)
-            res.render('cars/index', { title: "Cars", cars: JSON.parse(data) });
-        }
+    //     else {
+    //         console.log(data)
+    //         res.render('cars/index', { title: "Cars", cars: JSON.parse(data) });
+    //     }
+    // })
+
+    //getting data from database model car
+
+    car.find().then((data) => {
+        console.log(data)
+        res.render('cars/index', 
+        {
+             title: "Cars", 
+             cars: data });
+    }).catch((err) => {
+        console.log(err)
     })
 
-
-});
+})
 
 
 router.get('/create', (req, res) => {

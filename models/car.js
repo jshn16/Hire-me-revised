@@ -16,6 +16,10 @@ const carSchema = new mongoose.Schema({
     year: {
         type: Number
 
+    },
+
+    contactEmail: {
+        type: String
     }
 
 

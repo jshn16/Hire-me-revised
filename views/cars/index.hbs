@@ -1,8 +1,27 @@
 <h1>Cars</h1>
 <a href="/cars/create" title="Create Cars" />Create Cars</a>
-<ul>
-    {{#each cars}}
-    <li>{{this.Company}}, {{this.Name}}</li>
-    {{/each}}
+<table class="table table-striped table-hover">
+    <thead>
+        <th>Company</th>
+        <th>Car</th>
+        <th>Email</th>
+    </thead>
+    <tbody>
+        {{#each cars}}
+        <tr>
+            <td>{{this.company}}</td>
+            <td>{{this.name}}</td>
+            <td>{{#if this.contactEmail}}
+                <a href="mailto::{{this.contactEmail}}" title="owner email">{{this.contactEmail}}</a>
+                {{/if}}
+            </td>
+        </tr>
 
-</ul>
+
+        {{/each}}
+    </tbody>
+
+
+
+
+</table>
