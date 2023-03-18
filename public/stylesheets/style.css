@@ -58,7 +58,7 @@ input{
   margin-top: 5px;
   margin-left: 240px;
   color: #fff;
-  
+  outline: none;
   border: none;
   background-color: #FFC107;
 }
