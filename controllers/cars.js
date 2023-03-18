@@ -7,6 +7,9 @@ const router = express.Router();
 //use car model for CRUD
 const car = require("../models/car");
 
+//sing company model to get companies 
+const company = require('../models/company');
+
 router.get('/', function (req, res) {
 
     //reading file
@@ -27,10 +30,11 @@ router.get('/', function (req, res) {
 
     car.find().then((data) => {
         console.log(data)
-        res.render('cars/index', 
-        {
-             title: "Cars", 
-             cars: data });
+        res.render('cars/index',
+            {
+                title: "Cars",
+                cars: data
+            });
     }).catch((err) => {
         console.log(err)
     })
@@ -40,7 +44,15 @@ router.get('/', function (req, res) {
 
 router.get('/create', (req, res) => {
 
-    res.render('cars/create', { title: 'Create' })
+    company.find().then((data) => {
+        res.render('cars/create', {
+            title: "Create",
+            companies: data
+        })
+
+        console.log(data)
+
+    }).catch((error) => { })
 })
 
 router.post('/create', (req, res) => {
@@ -54,4 +66,37 @@ router.post('/create', (req, res) => {
         })
 })
 
+
+//delete method
+
+router.get('/delete/:_id', (req, res) => {
+
+    car.remove({ _id: req.params._id }).then((data) => {
+        console.log(data)
+        res.redirect('/cars')
+    }).catch((error) => {
+        console.log(error)
+    })
+})
+
+
+router.get('/edit/:_id', (req, res) => {
+    car.findById(req.params._id).then((data) => {
+        company.find().then((data) => {
+
+            res.render('cars/edit', {
+                title: 'Edit Cars',
+                cars: data,
+                companies: data
+            })
+            console.log(data)
+        }).catch((error) => {
+            console.log(error)
+        });
+        console.log(data);
+    }).catch((error) => {
+        console.log(error)
+    })
+
+})
 module.exports = router;
