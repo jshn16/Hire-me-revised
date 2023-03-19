@@ -4,6 +4,7 @@
     <thead>
         <th>Company</th>
         <th>Car</th>
+        <th>Year</th>
         <th>Email</th>
     </thead>
     <tbody>
@@ -11,6 +12,7 @@
         <tr>
             <td>{{this.company}}</td>
             <td>{{this.name}}</td>
+            <td>{{this.year}}</td>
             <td>{{#if this.contactEmail}}
                 <a href="mailto::{{this.contactEmail}}" title="owner email">{{this.contactEmail}}</a>
                 {{/if}}

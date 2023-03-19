@@ -4,9 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+
 const indexRouter = require('./controllers/index');
 const carsRouter = require('./controllers/cars');
-const companiesRouter=require('./controllers/companies');
+const companiesRouter = require('./controllers/companies');
 const usersRouter = require('./controllers/users');
 
 const app = express();
@@ -25,15 +26,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, "node_modules")));
 
 //using dotenv package to read from .env file
-if(process.env.NODE_ENV!='production'){
+if (process.env.NODE_ENV != 'production') {
   require('dotenv').config();
 }
 //mongodb connection string
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
+const { hasSubscribers } = require('diagnostics_channel');
 
-mongoose.connect(process.env.CONNECTION_STRING).then((res)=>{
+mongoose.connect(process.env.CONNECTION_STRING).then((res) => {
   console.log('Connected to mongoose');
-}).catch(()=>{
+}).catch(() => {
   console.log('Connection to mongoose failed');
 }
 )
@@ -42,6 +44,18 @@ app.use('/', indexRouter);
 app.use('/cars', carsRouter)
 app.use('/companies', companiesRouter)
 app.use('/users', usersRouter);
+
+
+//hbs function for select element value
+const hbs = require('hbs')
+hbs.registerHelper('selectOption', (currentValue, selectedValue) => {
+  let selectedProperty = '';
+  if (currentValue == selectedValue) {
+    selectedProperty = ' selected';
+  }
+  return new hbs.SafeString(`<option${selectedProperty}>${currentValue}</option>`);
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

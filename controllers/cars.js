@@ -81,22 +81,37 @@ router.get('/delete/:_id', (req, res) => {
 
 
 router.get('/edit/:_id', (req, res) => {
-    car.findById(req.params._id).then((data) => {
-        company.find().then((data) => {
+    car.findById(req.params._id).then((cars) => {
+        company.find().then((companies) => {
 
             res.render('cars/edit', {
                 title: 'Edit Cars',
-                cars: data,
-                companies: data
+                cars: cars,
+                companies: companies
             })
-            console.log(data)
+            // console.log(cars)
         }).catch((error) => {
             console.log(error)
         });
-        console.log(data);
+        // console.log(companies);
     }).catch((error) => {
         console.log(error)
     })
 
 })
+
+
+//post to update data
+
+router.post('/edit/:_id', (req,res)=>{
+    car.findByIdAndUpdate({_id: req.params._id}, req.body, null).then((data)=>{
+        console.log(data)
+        res.redirect('/cars')
+    }).catch((error)=>{
+        console.log(error)
+    })
+})
+
+
+
 module.exports = router;

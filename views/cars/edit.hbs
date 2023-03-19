@@ -5,7 +5,7 @@
         <label for="company">Company: *</label>
         <select id="company" name="company" required>
             {{#each companies}}
-                <option>{{this.name}}</option>
+                {{selectOption this.name ../cars.company}}
             {{/each}}
         </select>
     </fieldset>
