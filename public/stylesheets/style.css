@@ -44,9 +44,13 @@ li {
 
   border: none;
   box-shadow: rgba(28, 28, 28, 0.2) 0px 2px 4px 0px;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   outline: none;
   
+}
+
+.dropdown-menu a:hover{
+  background: #ccc;
 }
 
 
@@ -72,7 +76,7 @@ input{
   box-shadow: rgba(28, 28, 28, 0.2) 0px 2px 4px 0px;
   padding: 5px 10px;
   margin-top: 5px;
-  margin-left: 240px;
+  margin-left: 250px;
   color: #fff;
   
   border: none;
