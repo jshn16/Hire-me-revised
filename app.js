@@ -46,12 +46,6 @@ mongoose.connect(process.env.CONNECTION_STRING).then((res) => {
 const passport=require('passport');
 const session=require('express-session');
 
-app.use('/', indexRouter);
-app.use('/cars', carsRouter)
-app.use('/companies', companiesRouter)
-app.use('/users', usersRouter);
-app.use('/auth',authRouter);
-
 //initialize session 
 app.use(session({
   secret:process.env.PASSPORT_SECRET,
@@ -60,13 +54,28 @@ app.use(session({
 }))
 
 app.use(passport.initialize());
-app.use(passport.session);
+app.use(passport.session());
 
 const User=require('./models/user')
 passport.use(User.createStrategy())
 
+
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
+
+
+
+app.use('/', indexRouter);
+app.use('/cars', carsRouter)
+app.use('/companies', companiesRouter)
+app.use('/users', usersRouter);
+app.use('/auth',authRouter);
+
+
+
+
+
+
 
 //hbs function for select element value
 const hbs = require('hbs')

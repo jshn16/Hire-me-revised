@@ -11,7 +11,7 @@ h1,
 h2,
 h3,
 h4,
-h5,th {
+h5,th ,span{
   font-family: 'Raleway', sans-serif !important;
   font-weight: 700;
 
@@ -28,6 +28,7 @@ li {
 
 .box{
   padding: 1rem;
+  min-height: 82vh;
 }
 
 .navbar-dark{

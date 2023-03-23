@@ -10,6 +10,10 @@ const car = require("../models/car");
 //sing company model to get companies 
 const company = require('../models/company');
 
+//global check for authentication
+const globalFunctions=require('../controllers/globalFunctions.js');
+
+
 router.get('/', function (req, res) {
 
     //reading file
@@ -33,7 +37,8 @@ router.get('/', function (req, res) {
         res.render('cars/index',
             {
                 title: "Cars",
-                cars: data
+                cars: data,
+                user: req.user
             });
     }).catch((err) => {
         console.log(err)
@@ -41,12 +46,13 @@ router.get('/', function (req, res) {
 
 })
 
-
-router.get('/create', (req, res) => {
+//injection of auth check
+router.get('/create', globalFunctions.isAuthenticated, (req, res) => {
 
     company.find().then((data) => {
         res.render('cars/create', {
             title: "Create",
+            user: req.user,
             companies: data
         })
 
@@ -55,7 +61,7 @@ router.get('/create', (req, res) => {
     }).catch((error) => { })
 })
 
-router.post('/create', (req, res) => {
+router.post('/create', globalFunctions.isAuthenticated, (req, res) => {
 
     car.create(req.body)
         .then((data) => {
@@ -69,7 +75,7 @@ router.post('/create', (req, res) => {
 
 //delete method
 
-router.get('/delete/:_id', (req, res) => {
+router.get('/delete/:_id',globalFunctions.isAuthenticated, (req, res) => {
 
     car.remove({ _id: req.params._id }).then((data) => {
         console.log(data)
@@ -80,12 +86,13 @@ router.get('/delete/:_id', (req, res) => {
 })
 
 
-router.get('/edit/:_id', (req, res) => {
+router.get('/edit/:_id', globalFunctions.isAuthenticated,(req, res) => {
     car.findById(req.params._id).then((cars) => {
         company.find().then((companies) => {
 
             res.render('cars/edit', {
                 title: 'Edit Cars',
+                user: req.user,
                 cars: cars,
                 companies: companies
             })
@@ -103,7 +110,7 @@ router.get('/edit/:_id', (req, res) => {
 
 //post to update data
 
-router.post('/edit/:_id', (req,res)=>{
+router.post('/edit/:_id', globalFunctions.isAuthenticated, (req,res)=>{
     car.findByIdAndUpdate({_id: req.params._id}, req.body, null).then((data)=>{
         console.log(data)
         res.redirect('/cars')
