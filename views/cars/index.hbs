@@ -1,12 +1,18 @@
 <h1>Cars</h1>
+{{#if user}}
 <a href="/cars/create" title="Create Cars" />Create Cars</a>
+{{/if}}
+
 <table class="table table-striped table-hover">
     <thead>
         <th>Company</th>
         <th>Car</th>
         <th>Year</th>
         <th>Email</th>
+        {{#if user}}
         <th>Actions</th>
+        {{/if}}
+
     </thead>
     <tbody>
         {{#each cars}}
@@ -18,12 +24,19 @@
                 <a href="mailto::{{this.contactEmail}}" title="owner email">{{this.contactEmail}}</a>
                 {{/if}}
             </td>
+            {{#if ../user}}
             <td>
+
+
                 <a href="/cars/edit/{{this.id}}"> <i class="fa-solid fa-pen-to-square"></i></a>
 
-                <a href="/cars/delete/{{this.id}}" onclick="return confirmDelete()"><i class="fa-solid fa-trash"></i></a>
+                <a href="/cars/delete/{{this.id}}" onclick="return confirmDelete()"><i
+                        class="fa-solid fa-trash"></i></a>
+
+
 
             </td>
+            {{/if}}
         </tr>
 
 
