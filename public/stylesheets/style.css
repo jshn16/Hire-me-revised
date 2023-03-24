@@ -114,7 +114,7 @@ select {
 
 .user-banner{
   /* display: inline; */
-  display: inline-block;
+  display: block;
   /* padding: 0px 10px; */
   padding-left: 3px;
   padding-right: 3px;
@@ -122,4 +122,13 @@ select {
   background-color: #FFC107 !important;
   box-shadow: rgba(28, 28, 28, 0.2) 0px 2px 4px 0px;
   color: #fff;
+}
+
+.google{
+  margin: 5px;
+  display: block;
+  cursor: pointer;
+  max-width: 20% !important;
+  filter: drop-shadow(2px 2px 2px #ccc);
+  margin-left: 250px;
 }

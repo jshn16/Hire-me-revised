@@ -10,7 +10,7 @@ const carsRouter = require('./controllers/cars');
 const companiesRouter = require('./controllers/companies');
 const usersRouter = require('./controllers/users');
 
-const authRouter=require('./controllers/auth');
+const authRouter = require('./controllers/auth');
 
 const app = express();
 
@@ -43,12 +43,12 @@ mongoose.connect(process.env.CONNECTION_STRING).then((res) => {
 )
 
 //passport authentication config
-const passport=require('passport');
-const session=require('express-session');
+const passport = require('passport');
+const session = require('express-session');
 
 //initialize session 
 app.use(session({
-  secret:process.env.PASSPORT_SECRET,
+  secret: process.env.PASSPORT_SECRET,
   resave: true,
   saveUninitialized: false
 }))
@@ -56,20 +56,34 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const User=require('./models/user')
+const User = require('./models/user')
 passport.use(User.createStrategy())
 
 
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-
+//google auth
+const googleStrategy = require('passport-google-oauth20').Strategy;
+passport.use(new googleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOrCreate({ oauthId: profile.id }, {
+    username: profile.displayName,
+    oauthProvider: 'Google'
+  }, (err, user) => {
+    
+    return done(err, user);
+  })
+}));
 
 app.use('/', indexRouter);
 app.use('/cars', carsRouter)
 app.use('/companies', companiesRouter)
 app.use('/users', usersRouter);
-app.use('/auth',authRouter);
+app.use('/auth', authRouter);
 
 
 

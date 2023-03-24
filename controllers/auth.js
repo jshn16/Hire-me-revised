@@ -8,7 +8,7 @@ router.get('/register', (req, res) => {
     // clear session error msg
     req.session.messages = [];
 
-    res.render('auth/register', { 
+    res.render('auth/register', {
         title: 'Register',
         messages: messages
     });
@@ -18,8 +18,8 @@ router.post('/register', (req, res) => {
     // use User model to try creating a new user
     // User model extends passport-local-mongoose, so it does duplicate checks and hashes passwords
     User.register(new User({
-            username: req.body.username
-        }), req.body.password,
+        username: req.body.username
+    }), req.body.password,
         (err, user) => {
             if (err) {
                 // store error in session var so we can display it after redirecting
@@ -37,7 +37,7 @@ router.get('/login', (req, res) => {
     let messages = req.session.messages;
     req.session.messages = [];
 
-    res.render('auth/login', { 
+    res.render('auth/login', {
         title: 'Login',
         messages: messages
     });
@@ -51,14 +51,27 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 
-router.get('/logout',(req,res)=>{
-    req.logout((error)=>{
+router.get('/logout', (req, res) => {
+    req.logout((error) => {
 
-        if(error){
+        if (error) {
             console.log(error)
         }
         res.redirect('/')
     })
 })
+
+//google sign in
+
+router.get('/google', passport.authenticate('google', {
+    scope: ['profile']
+}), (req, res) => { })
+
+
+router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: "/cars",
+    failureRedirect: "/auth/login",
+    failureMessage: "Authentiaction With Google Failed!"
+}))
 
 module.exports = router;
