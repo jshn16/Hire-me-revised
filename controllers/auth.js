@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
 
+//get register page
 router.get('/register', (req, res) => {
     let messages = req.session.messages?.message;
     // clear session error msg
@@ -16,13 +17,13 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
     // use User model to try creating a new user
-    // User model extends passport-local-mongoose, so it does duplicate checks and hashes passwords
+    // User model extends passport-local-mongoose, avoids user duplication and hashes password for security purpose
     User.register(new User({
         username: req.body.username
     }), req.body.password,
         (err, user) => {
             if (err) {
-                // store error in session var so we can display it after redirecting
+                
                 console.log(err);
                 req.session.messages = err;
                 res.redirect('/auth/register');
@@ -33,6 +34,7 @@ router.post('/register', (req, res) => {
         });
 });
 
+//get login page
 router.get('/login', (req, res) => {
     let messages = req.session.messages;
     req.session.messages = [];
@@ -61,13 +63,13 @@ router.get('/logout', (req, res) => {
     })
 })
 
-//google sign in
+//Google Auth
 
 router.get('/google', passport.authenticate('google', {
     scope: ['profile']
 }), (req, res) => { })
 
-
+//Call back function for Google authentication
 router.get('/google/callback', passport.authenticate('google', {
     successRedirect: "/cars",
     failureRedirect: "/auth/login",
@@ -81,7 +83,7 @@ router.get('/facebook', passport.authenticate('facebook',
         scope: ['email']
     }), (req, res) => { })
 
-
+//Call back function for facebook authentication
 router.get('/facebook/callback', passport.authenticate('facebook', {
     successRedirect: "/cars",
     failureRedirect: "auth/login",
