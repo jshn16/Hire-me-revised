@@ -74,10 +74,30 @@ passport.use(new googleStrategy({
     username: profile.displayName,
     oauthProvider: 'Google'
   }, (err, user) => {
-    
     return done(err, user);
   })
 }));
+
+//facebook auth
+const facebookStratergy = require("passport-facebook").Strategy;
+
+passport.use(new facebookStratergy({
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+  state: true
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOrCreate({ oauthId: profile.id }, {
+    username: profile.username,
+    oauthProvider: 'Facebook'
+  }, (err, user) => {
+    return done(err, user);
+  })
+}));
+
+
+
+
 
 app.use('/', indexRouter);
 app.use('/cars', carsRouter)
@@ -92,7 +112,8 @@ app.use('/auth', authRouter);
 
 
 //hbs function for select element value
-const hbs = require('hbs')
+const hbs = require('hbs');
+const { profile } = require('console');
 hbs.registerHelper('selectOption', (currentValue, selectedValue) => {
   let selectedProperty = '';
   if (currentValue == selectedValue) {
