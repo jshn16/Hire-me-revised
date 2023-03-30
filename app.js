@@ -63,6 +63,8 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+
+
 //google auth
 const googleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new googleStrategy({
@@ -85,10 +87,11 @@ passport.use(new facebookStratergy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: process.env.FACEBOOK_CALLBACK_URL,
-  state: true
-}, (accessToken, refreshToken, profile, done) => {
-  User.findOrCreate({ oauthId: profile.id }, {
-    username: profile.username,
+  //'profileFields' not included in passport documentation
+  profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified']
+}, async(accessToken, refreshToken, profile, done) => {
+  await User.findOrCreate({ oauthId: profile.id }, {
+    username: profile.name.givenName,
     oauthProvider: 'Facebook'
   }, (err, user) => {
     return done(err, user);

@@ -76,15 +76,16 @@ router.get('/google/callback', passport.authenticate('google', {
 
 
 //facebook Auth
-router.get('/facebook',passport.authenticate('facebook',{
-    scope: ['profile']
-}),(req,res)=>{})
+router.get('/facebook', passport.authenticate('facebook',
+    {
+        scope: ['email']
+    }), (req, res) => { })
 
 
-router.get('/facebook/callback',passport.authenticate('facebook',{
+router.get('/facebook/callback', passport.authenticate('facebook', {
     successRedirect: "/cars",
-    failureRedirect:"auth/login",
-    failureMessage:"Login With FaceBook Failed"
+    failureRedirect: "auth/login",
+    failureMessage: "Login With FaceBook Failed"
 }))
 
 module.exports = router;
