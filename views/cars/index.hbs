@@ -4,9 +4,10 @@
 {{/if}}
 
 <div>
-<p>This is the current selection of cars. Carbase service department offers a complete host of automotive services for all makes and models and we specialise in the repair and maintenance. </p>
+    <p>This is the current selection of cars. Carbase service department offers a complete host of automotive services
+        for all makes and models and we specialise in the repair and maintenance. </p>
 
-<p>Below cars are listed with customer details to make your work of finding easier than never before</p>
+    <p>Below cars are listed with customer details to make your work of finding easier than never before!</p>
 </div>
 
 <table class="table table-striped table-hover">
@@ -15,6 +16,7 @@
         <th>Car</th>
         <th>Year</th>
         <th>Email</th>
+        <th>Odometer</th>
         {{#if user}}
         <th>Actions</th>
         {{/if}}
@@ -30,6 +32,10 @@
                 <a href="mailto::{{this.contactEmail}}" title="owner email">{{this.contactEmail}}</a>
                 {{/if}}
             </td>
+
+            <td>{{this.odometer}} km</td>
+
+            
             {{#if ../user}}
             <td>
 

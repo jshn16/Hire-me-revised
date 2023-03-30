@@ -20,6 +20,10 @@ const carSchema = new mongoose.Schema({
 
     contactEmail: {
         type: String
+    },
+
+    odometer:{
+        type:Number
     }
 
 
