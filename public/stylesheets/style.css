@@ -132,3 +132,57 @@ select {
   filter: drop-shadow(2px 2px 2px #ccc);
   margin-left: 250px;
 }
+
+div.SignIn div{
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+div.SignIn div a{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+div.SignIn div a img{
+  width: 40px;
+}
+
+div.SignIn div span{
+  min-width: 60px;
+  margin-left: 0.5rem;
+}
+
+div.home{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.home img{
+  padding:0rem  4rem;
+}
+
+div.img-holder{
+  height: 400px;
+  
+}
+
+div.img-holder img{
+  height: 100%;
+  
+}
+
+@media screen and (max-width: 600px)  {
+
+  div.home{
+    flex-direction: column;
+  }
+  
+}
