@@ -56,6 +56,7 @@
 
       </ul>
       <ul class="navbar-nav ms-auto">
+        {{#unless user}}
         <li class="nav-item">
           <a class="nav-link" href="/auth/register">Register</a>
         </li>
@@ -63,6 +64,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/auth/login">login</a>
         </li>
+        {{/unless}}
 
         {{#if user}}
 
@@ -72,7 +74,7 @@
 
         <li class="nav-item">
           <a class="nav-link user-banner" href="#">
-            Hi
+            Hi!
             {{user.username}}
           </a>
         </li>
