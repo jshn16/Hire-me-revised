@@ -1,5 +1,5 @@
 <h1>Welcome To Carbase</h1>
-<p>This Project was designed for assignment-3 of COMP-2106. This Web Appllication uses the following components on function.</p>
+<p>Developed a web application for a car service company, that can used for save clients and their vehicle information in records. Highly useful for managing huge client base. Developed with use of Node.js, Express.JS, Mongo DB, and JavaScript.</p>
 <ul>
 <li>Express.JS</li>
 <li>MongoDB</li>
