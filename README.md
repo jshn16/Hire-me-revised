@@ -4,6 +4,10 @@
 <li>Express.JS</li>
 <li>MongoDB</li>
 <li>HBS Views</li>
+<li>Node.JS</li>
+<li>JavaScript</li>
+<li>HTML-5</li>
+<li>CSS-3</li>
 </ul>
 <p>Live Site At <a href="https://carbase-comp2106.onrender.com">Carbse</a></p>
 <span>&copy; 2021-2023 jshn</span>
