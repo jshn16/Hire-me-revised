@@ -9,6 +9,6 @@
 <li>HTML-5</li>
 <li>CSS-3</li>
 </ul>
-<p>Live Site At: <a href="https://carbase-comp2106.onrender.com">Carbse</a></p>
+<p>Live Site At: <a href="https://carbase-comp2106.onrender.com">Carbase</a></p>
 <span>&copy; 2021-2023 jshn</span>
 <span>All Rights Reserved</span>
